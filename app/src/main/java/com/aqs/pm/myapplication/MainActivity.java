@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btEasy:
                 System.out.println("Easy");
-                //BouncingBallInside.setNumber(4);
-                BouncingBallInside bbs = new BouncingBallInside(getApplicationContext());
-                bbs.setNumber(10);
                 setVisibility();
                 startTitle();
                 break;

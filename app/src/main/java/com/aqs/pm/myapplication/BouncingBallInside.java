@@ -16,17 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class BouncingBallInside extends View {
-    private Paint paint;
     private List<Ball> balls = new ArrayList<>();
-    private int number;
-
-
-    public int getNumber(){
-        return this.number;
-    }
-    public void setNumber(int number){
-        this.number = number;
-    }
 
     public BouncingBallInside(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,13 +28,13 @@ public class BouncingBallInside extends View {
     }
 
     private void init(){
-        System.out.println(number);
         //Add a new ball to the view
         Random rd = new Random();
         int height = 1490;
         int width = 950;
         int[] colors = {Color.BLUE, Color.CYAN, Color.GREEN, Color.MAGENTA, Color.RED, Color.YELLOW};
         System.out.println();
+        balls.add(new Ball(rd.nextInt(width) + 50,rd.nextInt(height) + 50,100, colors[rd.nextInt(colors.length)]));
         balls.add(new Ball(rd.nextInt(width) + 50,rd.nextInt(height) + 50,100, colors[rd.nextInt(colors.length)]));
         balls.add(new Ball(rd.nextInt(width) + 50,rd.nextInt(height) + 50,100, colors[rd.nextInt(colors.length)]));
         balls.add(new Ball(rd.nextInt(width) + 50,rd.nextInt(height) + 50,100, colors[rd.nextInt(colors.length)]));
@@ -72,9 +62,7 @@ public class BouncingBallInside extends View {
                 public void run() {
                     BouncingBallInside bouncingBallInside = findViewById(R.id.bouncingBallInside);
                     bouncingBallInside.setVisibility(GONE);
-                    Context context = getContext();
-                    Intent intent = new Intent(((Activity)getContext()), WinActivity.class);
-                    ((Activity)getContext()).startActivity(intent);
+                    ((Activity)getContext()).setContentView(R.layout.activity_win);
                 }
             };
             handler.postDelayed(r, 10000);
