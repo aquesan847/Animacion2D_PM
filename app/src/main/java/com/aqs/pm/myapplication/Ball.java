@@ -12,14 +12,15 @@ public class Ball{
     public int[] direction = new int[]{-1, 1}; //direction modifier (-1,1)
     public Random rd = new Random();
     public int x,y,size;
-    public int speed = 10;
+    public int speed = 15;
     public Paint paint, paint2;
     public RectF oval;
 
-    public Ball(int x, int y, int size, int color){
+    public Ball(int x, int y, int size, int color, int speed){
         this.x = x;
         this.y = y;
         this.size = size;
+        this.speed = speed;
         this.paint = new Paint();
         this.paint.setStyle(Paint.Style.FILL);
         this.paint.setColor(color);

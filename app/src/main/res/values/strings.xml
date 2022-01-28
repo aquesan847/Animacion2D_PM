@@ -5,4 +5,9 @@
     <string name="normal">Normal</string>
     <string name="hard">Hard</string>
     <string name="select_a_difficulty">Select a difficulty</string>
+    <string name="how_many_balls_did_you_count">How many balls did you count?</string>
+    <string name="check">Check</string>
+    <string name="etCountEmpty">Count field is empty!</string>
+    <string name="loseText">Ooops, you lose...</string>
+    <string name="winText">YOU WIN!</string>
 </resources>

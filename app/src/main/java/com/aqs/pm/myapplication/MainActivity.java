@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvDifficulty;
     Title title;
     BouncingBallInside bouncingBallInside;
+    static boolean numberEasy, numberNormal, numberHard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,17 +48,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btEasy:
-                System.out.println("Easy");
+                numberEasy = true;
                 setVisibility();
                 startTitle();
                 break;
             case R.id.btNormal:
-                System.out.println("Normal");
+                numberNormal = true;
                 setVisibility();
                 startTitle();
                 break;
             case R.id.btHard:
-                System.out.println("Hard");
+                numberHard = true;
                 setVisibility();
                 startTitle();
                 break;
@@ -87,8 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bouncingBallInside.setVisibility(View.VISIBLE);
             }
         });
+
     }
-
-
-
 }
