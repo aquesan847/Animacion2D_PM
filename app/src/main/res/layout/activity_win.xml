@@ -8,12 +8,10 @@
 
     <TextView
         android:id="@+id/tvCount"
+        style="@style/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/how_many_balls_did_you_count"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold|italic"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,23 +22,18 @@
 
     <EditText
         android:id="@+id/etCount"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        style="@style/et_count"
         android:layout_marginStart="180dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="180dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        android:minHeight="48dp"
-        android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCount"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btCount"
@@ -79,8 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45"
-        tools:visibility="visible" />
+        app:layout_constraintVertical_bias="0.45" />
 
     <TextView
         android:id="@+id/tvCountingBalls"
@@ -91,6 +83,283 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title2"
         app:layout_constraintTop_toBottomOf="@+id/tvWin"
-        app:layout_constraintVertical_bias="0.08"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <Button
+        android:id="@+id/btRestart"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:text="@string/restart"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/title2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvCountHard"
+        style="@style/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/how_many_balls_did_you_count"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etBlue"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvBlue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvBlue"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etCyan"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvCyan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvCyan"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etGreen"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvGreen"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etMagenta"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvMagenta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvMagenta"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etRed"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvRed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvRed"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etYellow"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvYellow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvYellow"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etGray"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvGray"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <EditText
+        android:id="@+id/etBlack"
+        style="@style/et_count"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:visibility="gone"
+        app:layout_constraintBaseline_toBaselineOf="@id/tvBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvBlack"
+        tools:ignore="SpeakableTextPresentCheck"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvBlue"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/blue"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etBlue"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCountHard"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvCyan"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/cyan"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etCyan"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBlue"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvGreen"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/green"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etGreen"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCyan"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvMagenta"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/magenta"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etMagenta"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGreen"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvRed"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/red"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etRed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMagenta"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvYellow"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/yellow"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etYellow"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRed"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvGray"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/gray"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etGray"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvYellow"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvBlack"
+        style="@style/tv_colors"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/black"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/etBlack"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGray"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

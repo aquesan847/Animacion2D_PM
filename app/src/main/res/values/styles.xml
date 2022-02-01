@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="tv_count">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <style name="et_count">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ems">10</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:inputType">number</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="tv_colors">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+</resources>

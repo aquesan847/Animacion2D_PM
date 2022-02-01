@@ -15,6 +15,7 @@ public class Title extends View {
 
     private final Paint paint;
     private String titleText;
+
     public Title(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         paint = new Paint();

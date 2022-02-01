@@ -7,6 +7,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -20,11 +21,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Title title;
     BouncingBallInside bouncingBallInside;
     static boolean numberEasy, numberNormal, numberHard;
+    public static MediaPlayer mep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Añadimos musica con MediaPlayer
+        mep = MediaPlayer.create(this, R.raw.softcircle);
+        mep.setLooping(true);
 
         btEasy = findViewById(R.id.btEasy);
         btEasy.setOnClickListener(this);
@@ -63,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startTitle();
                 break;
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mep.start();
     }
 
     private void setVisibility() {
