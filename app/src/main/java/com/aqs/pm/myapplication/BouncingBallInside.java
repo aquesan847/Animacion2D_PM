@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +27,13 @@ public class BouncingBallInside extends View {
     private List<Ball> balls = new ArrayList<>();
     private boolean bouncingBool = true;
     private boolean diffEasy, diffNormal, diffHard;
-    private Button btCount;
+    private Button btCount, btCheckHard, btRestartHard;
     private EditText etCount;
+    private TextView tvBlue, tvCyan, tvGreen, tvMagenta, tvRed, tvYellow, tvGray, tvBlack;
+    private EditText etBlue, etCyan, etGreen, etMagenta, etRed, etYellow, etGray, etBlack;
     private int cont, contBlue, contCyan, contGreen, contMagenta, contRed, contYellow, contGray, contBlack;
     private MediaPlayer mep2;
+    private ImageView imgWin1, imgWin2;
     public BouncingBallInside(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -143,52 +147,201 @@ public class BouncingBallInside extends View {
 
         // Mostrar campos cuando termine la animación del titulo2
         animation2.addListener(new AnimatorListenerAdapter() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if (diffEasy || diffNormal) {
+                imgWin1 = ((Activity) getContext()).findViewById(R.id.imgWin1);
+                imgWin2 = ((Activity) getContext()).findViewById(R.id.imgWin2);
+                if (diffEasy) {
                     setVisibilityEasy(true);
                     // Cuando se apriete el botón se comprobará si el numero de bolas coincide, ademas de controlar que no meta un campo vacío
-                    btCount.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (!etCount.getText().toString().isEmpty()) {
-                                mep2.stop();
-                                TextView tvWin = ((Activity) getContext()).findViewById(R.id.tvWin);
-                                TextView tvCountingBalls = ((Activity) getContext()).findViewById(R.id.tvCountingBalls);
-                                Button btRestart = ((Activity) getContext()).findViewById(R.id.btRestart);
-                                if (etCount.getText().toString().equals(String.valueOf(cont))) {
-                                    setVisibilityEasy(false);
-                                    tvWin.setText(R.string.winText);
-                                    tvWin.setVisibility(VISIBLE);
-                                    mep2 = MediaPlayer.create((Activity) getContext(), R.raw.win);
-                                    mep2.start();
-                                } else {
-                                    setVisibilityEasy(false);
-                                    tvWin.setText(R.string.loseText);
-                                    tvWin.setVisibility(VISIBLE);
-                                    mep2 = MediaPlayer.create((Activity) getContext(), R.raw.lose);
-                                    mep2.start();
-                                }
-                                // Una vez comprobado si ha acertado o no le mostramos el número de bolas y el botón para reiniciar el juego
-                                tvCountingBalls.setText("There were " + cont + " balls");
-                                tvCountingBalls.setVisibility(VISIBLE);
-                                btRestart.setVisibility(VISIBLE);
-                                btRestart.setOnClickListener(new OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        mep2.stop();
-                                        ((Activity) getContext()).recreate();
-                                    }
-                                });
+                    btCount.setOnClickListener(view -> {
+                        if (!etCount.getText().toString().isEmpty()) {
+                            mep2.stop();
+                            TextView tvWin = ((Activity) getContext()).findViewById(R.id.tvWin);
+                            TextView tvCountingBalls = ((Activity) getContext()).findViewById(R.id.tvCountingBalls);
+                            Button btRestart = ((Activity) getContext()).findViewById(R.id.btRestart);
+                            if (etCount.getText().toString().equals(String.valueOf(cont))) {
+                                setVisibilityEasy(false);
+                                tvWin.setText(R.string.winText);
+                                tvWin.setVisibility(VISIBLE);
+                                mep2 = MediaPlayer.create((Activity) getContext(), R.raw.win);
+                                mep2.start();
                             } else {
-                                Toast.makeText((Activity) getContext(), R.string.etCountEmpty, Toast.LENGTH_SHORT).show();
+                                setVisibilityEasy(false);
+                                imgWin1.setImageDrawable(getResources().getDrawable(R.drawable.lose));
+                                imgWin2.setImageDrawable(getResources().getDrawable(R.drawable.lose));
+                                tvWin.setText(R.string.loseText);
+                                tvWin.setVisibility(VISIBLE);
+                                mep2 = MediaPlayer.create((Activity) getContext(), R.raw.lose);
+                                mep2.start();
                             }
+                            // Una vez comprobado si ha acertado o no le mostramos el número de bolas y el botón para reiniciar el juego
+                            tvCountingBalls.setText("There were " + cont + " balls");
+                            tvCountingBalls.setVisibility(VISIBLE);
+                            btRestart.setVisibility(VISIBLE);
+                            imgWin1.setVisibility(View.VISIBLE);
+                            imgWin2.setVisibility(View.VISIBLE);
+                            btRestart.setOnClickListener(view1 -> {
+                                mep2.stop();
+                                ((Activity) getContext()).recreate();
+                            });
+                        } else {
+                            Toast.makeText((Activity) getContext(), R.string.etCountEmpty, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    setVisibilityHard(true);
+                    checkColorsCont();
+                    prepareEmptyFields();
+                    btCheckHard.setOnClickListener(view -> {
+                        if (checkEmptyFields()) {
+                            mep2.stop();
+                            TextView tvWin = ((Activity) getContext()).findViewById(R.id.tvWin);
+                            TextView tvCountingBalls = ((Activity) getContext()).findViewById(R.id.tvCountingBalls);
+                            Button btRestartHard = ((Activity) getContext()).findViewById(R.id.btRestartHard);
+                            if (checkFieldsCont()) {
+                                setVisibilityHard(false);
+                                tvWin.setText(R.string.winText);
+                                tvWin.setVisibility(VISIBLE);
+                                mep2 = MediaPlayer.create((Activity) getContext(), R.raw.win);
+                                mep2.start();
+                            } else {
+                                setVisibilityHard(false);
+                                imgWin1.setImageDrawable(getResources().getDrawable(R.drawable.lose));
+                                imgWin2.setImageDrawable(getResources().getDrawable(R.drawable.lose));
+                                tvWin.setText(R.string.loseText);
+                                tvWin.setVisibility(VISIBLE);
+                                mep2 = MediaPlayer.create((Activity) getContext(), R.raw.lose);
+                                mep2.start();
+                            }
+                            // Una vez comprobado si ha acertado o no le mostramos el número de bolas de cada color y el botón para reiniciar el juego
+                            tvCountingBalls.setText("There were " + contBlue + " blue balls\n\t\t\t\t" +
+                                                contCyan + " cyan balls\n\t\t\t\t" +
+                                                contGreen + " green balls\n\t\t\t\t" +
+                                                contMagenta + " magenta balls\n\t\t\t\t" +
+                                                contRed + " red balls\n\t\t\t\t" +
+                                                contYellow + " yellow balls\n\t\t\t\t" +
+                                                contGray + " gray balls\n\t\t\t\t" +
+                                                contBlack + " black balls");
+                            tvCountingBalls.setVisibility(VISIBLE);
+                            btRestartHard.setVisibility(VISIBLE);
+                            imgWin1.setVisibility(View.VISIBLE);
+                            imgWin2.setVisibility(View.VISIBLE);
+                            btRestartHard.setOnClickListener(view12 -> {
+                                mep2.stop();
+                                ((Activity) getContext()).recreate();
+                            });
+                        } else {
+                            Toast.makeText((Activity) getContext(), R.string.etCountEmpty, Toast.LENGTH_SHORT).show();
                         }
                     });
                 }
             }
         });
+    }
+
+    private void prepareEmptyFields() {
+        if (!etBlue.isEnabled()) {
+            etBlue.setText("0");
+        }
+        if (!etCyan.isEnabled()) {
+            etCyan.setText("0");
+        }
+        if (!etGreen.isEnabled()) {
+            etGreen.setText("0");
+        }
+        if (!etMagenta.isEnabled()) {
+            etMagenta.setText("0");
+        }
+        if (!etRed.isEnabled()) {
+            etRed.setText("0");
+        }
+        if (!etYellow.isEnabled()) {
+            etYellow.setText("0");
+        }
+        if (!etGray.isEnabled()) {
+            etGray.setText("0");
+        }
+        if (!etBlack.isEnabled()) {
+            etBlack.setText("0");
+        }
+    }
+
+    private boolean checkFieldsCont() {
+        return etBlue.getText().toString().equals(String.valueOf(contBlue)) &&
+                etCyan.getText().toString().equals(String.valueOf(contCyan)) &&
+                etGreen.getText().toString().equals(String.valueOf(contGreen)) &&
+                etMagenta.getText().toString().equals(String.valueOf(contMagenta)) &&
+                etRed.getText().toString().equals(String.valueOf(contRed)) &&
+                etYellow.getText().toString().equals(String.valueOf(contYellow)) &&
+                etGray.getText().toString().equals(String.valueOf(contGray)) &&
+                etBlack.getText().toString().equals(String.valueOf(contBlack));
+    }
+
+    private boolean checkEmptyFields() {
+        boolean check = false;
+        if (!etBlue.getText().toString().isEmpty() && etBlue.isEnabled()) {
+            check = true;
+        }
+        if (!etCyan.getText().toString().isEmpty() && etCyan.isEnabled()) {
+            check =  true;
+        }
+        if (!etGreen.getText().toString().isEmpty() && etGreen.isEnabled()) {
+            check =  true;
+        }
+        if (!etMagenta.getText().toString().isEmpty() && etMagenta.isEnabled()) {
+            check =  true;
+        }
+        if (!etRed.getText().toString().isEmpty() && etRed.isEnabled()) {
+            check =  true;
+        }
+        if (!etYellow.getText().toString().isEmpty() && etYellow.isEnabled()) {
+            check =  true;
+        }
+        if (!etGray.getText().toString().isEmpty() && etGray.isEnabled()) {
+            check =  true;
+        }
+        if (!etBlack.getText().toString().isEmpty() && etBlack.isEnabled()) {
+            check =  true;
+        }
+        return check;
+    }
+
+    private void checkColorsCont() {
+        if (contBlue == 0) {
+            etBlue.setEnabled(false);
+        }
+        if (contCyan == 0) {
+            etCyan.setEnabled(false);
+        }
+        if (contGreen == 0) {
+            etGreen.setEnabled(false);
+        }
+        if (contMagenta == 0) {
+            etMagenta.setEnabled(false);
+        }
+        if (contRed == 0) {
+            etRed.setEnabled(false);
+        }
+        if (contYellow == 0) {
+            etYellow.setEnabled(false);
+        }
+        if (contGray == 0) {
+            etGray.setEnabled(false);
+        }
+        if (contBlack == 0) {
+            etBlack.setEnabled(false);
+        }
+        System.out.println(contBlue);
+        System.out.println(contCyan);
+        System.out.println(contGreen);
+        System.out.println(contMagenta);
+        System.out.println(contRed);
+        System.out.println(contYellow);
+        System.out.println(contGray);
+        System.out.println(contBlack);
     }
 
 
@@ -208,17 +361,63 @@ public class BouncingBallInside extends View {
     }
 
     private void setVisibilityHard(Boolean visibility) {
-        btCount = ((Activity)getContext()).findViewById(R.id.btCount);
-        etCount = ((Activity)getContext()).findViewById(R.id.etCount);
-        TextView tvCount = ((Activity)getContext()).findViewById(R.id.tvCount);
+        tvBlue = ((Activity)getContext()).findViewById(R.id.tvBlue);
+        tvCyan = ((Activity)getContext()).findViewById(R.id.tvCyan);
+        tvGreen = ((Activity)getContext()).findViewById(R.id.tvGreen);
+        tvMagenta = ((Activity)getContext()).findViewById(R.id.tvMagenta);
+        tvRed = ((Activity)getContext()).findViewById(R.id.tvRed);
+        tvYellow = ((Activity)getContext()).findViewById(R.id.tvYellow);
+        tvGray = ((Activity)getContext()).findViewById(R.id.tvGray);
+        tvBlack = ((Activity)getContext()).findViewById(R.id.tvBlack);
+        etBlue = ((Activity)getContext()).findViewById(R.id.etBlue);
+        etCyan = ((Activity)getContext()).findViewById(R.id.etCyan);
+        etGreen = ((Activity)getContext()).findViewById(R.id.etGreen);
+        etMagenta = ((Activity)getContext()).findViewById(R.id.etMagenta);
+        etRed = ((Activity)getContext()).findViewById(R.id.etRed);
+        etYellow = ((Activity)getContext()).findViewById(R.id.etYellow);
+        etGray = ((Activity)getContext()).findViewById(R.id.etGray);
+        etBlack = ((Activity)getContext()).findViewById(R.id.etBlack);
+        btCheckHard = ((Activity)getContext()).findViewById(R.id.btCheckHard);
+        TextView tvCountH = ((Activity)getContext()).findViewById(R.id.tvCountHard);
+
         if (visibility) {
-            btCount.setVisibility(View.VISIBLE);
-            etCount.setVisibility(View.VISIBLE);
-            tvCount.setVisibility(View.VISIBLE);
+            btCheckHard.setVisibility(View.VISIBLE);
+            tvBlue.setVisibility(View.VISIBLE);
+            tvCyan.setVisibility(View.VISIBLE);
+            tvGreen.setVisibility(View.VISIBLE);
+            tvMagenta.setVisibility(View.VISIBLE);
+            tvRed.setVisibility(View.VISIBLE);
+            tvYellow.setVisibility(View.VISIBLE);
+            tvGray.setVisibility(View.VISIBLE);
+            tvBlack.setVisibility(View.VISIBLE);
+            etBlue.setVisibility(View.VISIBLE);
+            etCyan.setVisibility(View.VISIBLE);
+            etGreen.setVisibility(View.VISIBLE);
+            etMagenta.setVisibility(View.VISIBLE);
+            etRed.setVisibility(View.VISIBLE);
+            etYellow.setVisibility(View.VISIBLE);
+            etGray.setVisibility(View.VISIBLE);
+            etBlack.setVisibility(View.VISIBLE);
+            tvCountH.setVisibility(View.VISIBLE);
         } else {
-            btCount.setVisibility(View.GONE);
-            etCount.setVisibility(View.GONE);
-            tvCount.setVisibility(View.GONE);
+            btCheckHard.setVisibility(View.GONE);
+            tvBlue.setVisibility(View.GONE);
+            tvCyan.setVisibility(View.GONE);
+            tvGreen.setVisibility(View.GONE);
+            tvMagenta.setVisibility(View.GONE);
+            tvRed.setVisibility(View.GONE);
+            tvYellow.setVisibility(View.GONE);
+            tvGray.setVisibility(View.GONE);
+            tvBlack.setVisibility(View.GONE);
+            etBlue.setVisibility(View.GONE);
+            etCyan.setVisibility(View.GONE);
+            etGreen.setVisibility(View.GONE);
+            etMagenta.setVisibility(View.GONE);
+            etRed.setVisibility(View.GONE);
+            etYellow.setVisibility(View.GONE);
+            etGray.setVisibility(View.GONE);
+            etBlack.setVisibility(View.GONE);
+            tvCountH.setVisibility(View.GONE);
         }
     }
 

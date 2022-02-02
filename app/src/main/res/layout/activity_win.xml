@@ -26,14 +26,14 @@
         android:layout_marginStart="180dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="180dp"
+        android:importantForAutofill="no"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvCount"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:importantForAutofill="no" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/btCount"
@@ -57,7 +57,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleText="Counting balls..." />
+        app:titleText="Counting balls..."
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/tvWin"
@@ -72,7 +73,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.45"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/imgWin1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/todo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvWin"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/win"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imgWin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/todo"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvWin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        app:srcCompat="@drawable/win"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tvCountingBalls"
@@ -97,23 +131,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="visible" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvCountHard"
         style="@style/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:text="@string/how_many_balls_did_you_count"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:visibility="visible" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/etBlue"
@@ -129,8 +161,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvBlue"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etCyan"
@@ -146,8 +177,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvCyan"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etGreen"
@@ -163,8 +193,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvGreen"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etMagenta"
@@ -180,8 +209,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvMagenta"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etRed"
@@ -197,8 +225,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvRed"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etYellow"
@@ -214,8 +241,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvYellow"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etGray"
@@ -231,8 +257,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvGray"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/etBlack"
@@ -248,8 +273,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvBlack"
-        tools:ignore="SpeakableTextPresentCheck"
-        tools:visibility="visible" />
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/tvBlue"
@@ -262,104 +286,125 @@
         app:layout_constraintEnd_toStartOf="@+id/etBlue"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCountHard"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCountHard" />
 
     <TextView
         android:id="@+id/tvCyan"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/cyan"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etCyan"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBlue"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvBlue" />
 
     <TextView
         android:id="@+id/tvGreen"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/green"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etGreen"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCyan"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCyan" />
 
     <TextView
         android:id="@+id/tvMagenta"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/magenta"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etMagenta"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGreen"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGreen" />
 
     <TextView
         android:id="@+id/tvRed"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/red"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etRed"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMagenta"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMagenta" />
 
     <TextView
         android:id="@+id/tvYellow"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/yellow"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etYellow"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRed"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRed" />
 
     <TextView
         android:id="@+id/tvGray"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/gray"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etGray"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvYellow"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvYellow" />
 
     <TextView
         android:id="@+id/tvBlack"
         style="@style/tv_colors"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:text="@string/black"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/etBlack"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvGray"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/tvGray" />
+
+    <Button
+        android:id="@+id/btCheckHard"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/check"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btRestartHard"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/restart"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
