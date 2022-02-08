@@ -1,15 +1,20 @@
 package com.aqs.pm.myapplication;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +23,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class BouncingBallInside extends View {
     private List<Ball> balls = new ArrayList<>();
@@ -33,7 +43,8 @@ public class BouncingBallInside extends View {
     private EditText etBlue, etCyan, etGreen, etMagenta, etRed, etYellow, etGray, etBlack;
     private int cont, contBlue, contCyan, contGreen, contMagenta, contRed, contYellow, contGray, contBlack;
     private MediaPlayer mep2;
-    private ImageView imgWin1, imgWin2;
+    private ImageView imgWin1, imgWin2, imgCamera;
+    public static int CAMERA_REQUEST_CODE = 100;
     public BouncingBallInside(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -101,7 +112,7 @@ public class BouncingBallInside extends View {
         super.onDraw(canvas);
         if (MainActivity.numberEasy || MainActivity.numberNormal || MainActivity.numberHard) {
             init();
-            System.out.println(cont);
+            //System.out.println(cont);
         }
         MainActivity.numberEasy = false;
         MainActivity.numberNormal = false;
@@ -147,12 +158,13 @@ public class BouncingBallInside extends View {
 
         // Mostrar campos cuando termine la animación del titulo2
         animation2.addListener(new AnimatorListenerAdapter() {
-            @SuppressLint("UseCompatLoadingForDrawables")
+            @SuppressLint({"UseCompatLoadingForDrawables", "SetTextI18n"})
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 imgWin1 = ((Activity) getContext()).findViewById(R.id.imgWin1);
                 imgWin2 = ((Activity) getContext()).findViewById(R.id.imgWin2);
+                imgCamera = ((Activity) getContext()).findViewById(R.id.imgCamera);
                 if (diffEasy) {
                     setVisibilityEasy(true);
                     // Cuando se apriete el botón se comprobará si el numero de bolas coincide, ademas de controlar que no meta un campo vacío
@@ -233,6 +245,16 @@ public class BouncingBallInside extends View {
                                 mep2.stop();
                                 ((Activity) getContext()).recreate();
                             });
+                            imgCamera.setVisibility(View.VISIBLE);
+                            imgCamera.setOnClickListener(view13 -> {
+                                EasyPermissions.requestPermissions(MainActivity.mainActivity,"Request permission for the camera use.", CAMERA_REQUEST_CODE, Manifest.permission.CAMERA);
+                                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                                    // Abrimos la camara para realizar la foto
+                                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                    MainActivity.mainActivity.startActivity(intent);
+                                }
+                            });
                         } else {
                             Toast.makeText((Activity) getContext(), R.string.etCountEmpty, Toast.LENGTH_SHORT).show();
                         }
@@ -241,6 +263,7 @@ public class BouncingBallInside extends View {
             }
         });
     }
+
 
     private void prepareEmptyFields() {
         if (!etBlue.isEnabled()) {
@@ -334,14 +357,16 @@ public class BouncingBallInside extends View {
         if (contBlack == 0) {
             etBlack.setEnabled(false);
         }
-        System.out.println(contBlue);
-        System.out.println(contCyan);
-        System.out.println(contGreen);
-        System.out.println(contMagenta);
-        System.out.println(contRed);
-        System.out.println(contYellow);
-        System.out.println(contGray);
-        System.out.println(contBlack);
+        /*
+         * System.out.println(contBlue);
+         * System.out.println(contCyan);
+         * System.out.println(contGreen);
+         * System.out.println(contMagenta);
+         * System.out.println(contRed);
+         * System.out.println(contYellow);
+         * System.out.println(contGray);
+         * System.out.println(contBlack);
+         */
     }
 
 
