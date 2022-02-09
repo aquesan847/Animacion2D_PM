@@ -1,5 +1,6 @@
 package com.aqs.pm.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
@@ -15,7 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import java.sql.SQLOutput;
+import java.util.List;
+
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     Button btEasy,btNormal,btHard;
     TextView tvDifficulty;
@@ -106,4 +112,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     }
+
 }

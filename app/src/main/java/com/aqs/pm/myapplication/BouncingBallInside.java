@@ -1,18 +1,21 @@
 package com.aqs.pm.myapplication;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
@@ -23,8 +26,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +40,15 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class BouncingBallInside extends View {
     private List<Ball> balls = new ArrayList<>();
     private boolean bouncingBool = true;
+    private boolean imgBool = false;
     private boolean diffEasy, diffNormal, diffHard;
-    private Button btCount, btCheckHard, btRestartHard;
+    private Button btCount, btCheckHard, btRestartHard, btLoad;
     private EditText etCount;
     private TextView tvBlue, tvCyan, tvGreen, tvMagenta, tvRed, tvYellow, tvGray, tvBlack;
     private EditText etBlue, etCyan, etGreen, etMagenta, etRed, etYellow, etGray, etBlack;
     private int cont, contBlue, contCyan, contGreen, contMagenta, contRed, contYellow, contGray, contBlack;
     private MediaPlayer mep2;
-    private ImageView imgWin1, imgWin2, imgCamera;
+    private ImageView imgWin1, imgWin2, imgCamera, imgSelected;
     public static int CAMERA_REQUEST_CODE = 100;
     public BouncingBallInside(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -165,6 +170,7 @@ public class BouncingBallInside extends View {
                 imgWin1 = ((Activity) getContext()).findViewById(R.id.imgWin1);
                 imgWin2 = ((Activity) getContext()).findViewById(R.id.imgWin2);
                 imgCamera = ((Activity) getContext()).findViewById(R.id.imgCamera);
+                imgSelected = ((Activity) getContext()).findViewById(R.id.imgSelected);
                 if (diffEasy) {
                     setVisibilityEasy(true);
                     // Cuando se apriete el botón se comprobará si el numero de bolas coincide, ademas de controlar que no meta un campo vacío
@@ -199,6 +205,31 @@ public class BouncingBallInside extends View {
                                 mep2.stop();
                                 ((Activity) getContext()).recreate();
                             });
+                            imgBool = false;
+                            imgCamera.setVisibility(View.VISIBLE);
+                            imgCamera.setOnClickListener(view13 -> {
+                                EasyPermissions.requestPermissions(MainActivity.mainActivity,"Request permission for the camera use.", CAMERA_REQUEST_CODE, Manifest.permission.CAMERA);
+                                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                                        == PackageManager.PERMISSION_GRANTED) {
+                                    // Abrimos la camara para realizar la foto
+                                    Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                                    MainActivity.mainActivity.startActivity(intent);
+                                    imgBool = true;
+                                }
+                                btLoad.setVisibility(View.VISIBLE);
+                                if (imgBool) {
+                                    btLoad.setOnClickListener(view14 -> {
+                                        imgSelected.setVisibility(View.VISIBLE);
+                                        Glide.with((Activity) getContext())
+                                                .load(((Activity) getContext()).getResources().getDrawable(R.drawable.img_selected))
+                                                .placeholder(R.drawable.img_selected)
+                                                .into(imgSelected);
+                                        btLoad.setVisibility(View.GONE);
+                                    });
+                                } else {
+                                    Toast.makeText((Activity) getContext(), "Upload an image first!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Toast.makeText((Activity) getContext(), R.string.etCountEmpty, Toast.LENGTH_SHORT).show();
                         }
@@ -213,6 +244,7 @@ public class BouncingBallInside extends View {
                             TextView tvWin = ((Activity) getContext()).findViewById(R.id.tvWin);
                             TextView tvCountingBalls = ((Activity) getContext()).findViewById(R.id.tvCountingBalls);
                             Button btRestartHard = ((Activity) getContext()).findViewById(R.id.btRestartHard);
+                            btLoad = ((Activity) getContext()).findViewById(R.id.btLoad);
                             if (checkFieldsCont()) {
                                 setVisibilityHard(false);
                                 tvWin.setText(R.string.winText);
@@ -245,6 +277,7 @@ public class BouncingBallInside extends View {
                                 mep2.stop();
                                 ((Activity) getContext()).recreate();
                             });
+                            imgBool = false;
                             imgCamera.setVisibility(View.VISIBLE);
                             imgCamera.setOnClickListener(view13 -> {
                                 EasyPermissions.requestPermissions(MainActivity.mainActivity,"Request permission for the camera use.", CAMERA_REQUEST_CODE, Manifest.permission.CAMERA);
@@ -253,6 +286,20 @@ public class BouncingBallInside extends View {
                                     // Abrimos la camara para realizar la foto
                                     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                                     MainActivity.mainActivity.startActivity(intent);
+                                    imgBool = true;
+                                }
+                                btLoad.setVisibility(View.VISIBLE);
+                                if (imgBool) {
+                                    btLoad.setOnClickListener(view14 -> {
+                                        imgSelected.setVisibility(View.VISIBLE);
+                                        Glide.with((Activity) getContext())
+                                                .load(((Activity) getContext()).getResources().getDrawable(R.drawable.img_selected))
+                                                .placeholder(R.drawable.img_selected)
+                                                .into(imgSelected);
+                                        btLoad.setVisibility(View.GONE);
+                                    });
+                                } else {
+                                    Toast.makeText((Activity) getContext(), "Upload an image first!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
@@ -263,7 +310,6 @@ public class BouncingBallInside extends View {
             }
         });
     }
-
 
     private void prepareEmptyFields() {
         if (!etBlue.isEnabled()) {
@@ -357,16 +403,6 @@ public class BouncingBallInside extends View {
         if (contBlack == 0) {
             etBlack.setEnabled(false);
         }
-        /*
-         * System.out.println(contBlue);
-         * System.out.println(contCyan);
-         * System.out.println(contGreen);
-         * System.out.println(contMagenta);
-         * System.out.println(contRed);
-         * System.out.println(contYellow);
-         * System.out.println(contGray);
-         * System.out.println(contBlack);
-         */
     }
 
 
